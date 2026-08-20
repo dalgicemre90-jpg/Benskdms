@@ -1,0 +1,30 @@
+name: Build plugin
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: 'maven'
+      - name: Copy plugin.yml into resources
+        run: |
+          mkdir -p src/main/resources
+          if [ -f plugin.yml ]; then cp plugin.yml src/main/resources/; fi
+      - name: Build with Maven
+        run: mvn -DskipTests clean package
+      - name: List jar
+        run: ls -la target | sed -n '1,200p'
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: skydungeon-mob-persist-fix
+          path: target/*.jar
