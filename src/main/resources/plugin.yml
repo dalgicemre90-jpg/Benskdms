@@ -1,0 +1,7 @@
+name: SkyDungeonMobPersistFix
+version: 1.0.0
+main: com.staily.skydungeonpersistfix.SkyDungeonMobPersistFix
+api-version: '1.21'
+author: Staily
+description: SkyDungeon mob/boss noktalarini güvenilir şekilde kaydeder ve restart sonrası geri yükler.
+depend: [SkyDungeon]
